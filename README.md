@@ -13,3 +13,15 @@ Utilities for interacting with `NSAppleScript` in Swift.
     - `NSAppleScript.handler(named:argumentTypes:returnType:)` (and its `Void`-return equivalent) -
       returns a closure that invokes a handler in the script with typed argument and return values.
     
+## Usage Example
+```swift
+let source = """
+to cube(theNumber)
+  return theNumber * theNumber * theNumber
+end cube
+"""
+let script = NSAppleScript(source: source)!
+let cube: (Double) throws -> Double = script.handler(named: "cube") // argument types inferred
+
+print(try cube(3))
+```
